@@ -6,7 +6,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <link rel="icon" href="/images/emoji/no_mouth.png">
 
     <title>Emojint</title>
 
@@ -54,7 +54,6 @@
             <div class="form-group">
               <input id="search_str" type="text" placeholder="search" class="form-control" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" autocomplete="off">
             </div>
-            <button id="search_button" type="button" class="btn btn-success">Search</button>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -114,24 +113,7 @@
       (function() {
         emojify.run();
 
-        $.fn.enterKey = function (fnc) {
-          return this.each(function () {
-            $(this).keypress(function (ev) {
-              var keycode = (ev.keyCode ? ev.keyCode : ev.which);
-              if (keycode == '13') {
-                fnc.call(this, ev);
-              }
-            })
-          })
-        }
-
-        $("#search_str").enterKey(
-          function() {
-           search($("#search_str").val());
-          }
-        );
-
-	$("#search_button").click(
+        $("#search_str").keyup(
           function() {
            search($("#search_str").val());
           }
@@ -145,7 +127,6 @@
           var span = $( this ).find('span');
           $( span ).text($( span ).attr('id').substr(1));
         }, function() {
-          //$( this ).find('span')[0].text('...');
           $(this).find('span').text('');
         }
       );
@@ -154,7 +135,7 @@
         $.each($( "li" ), function(index, value) {
           id = $(value).attr('id');
           if(term) {
-            if(id.includes(term)) {
+            if(id.includes(term.toLowerCase())) {
               $(value).show();
             } else {
               $(value).hide();
