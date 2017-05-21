@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta http-equiv="Content-Type" content="application/x-php; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Emojint</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Emojify CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <style>@media print {#ghostery-purple-box {display:none !important}}</style>
+  <style>
+    ul {
+      list-style-type: none;
+      columns: 3;
+      -webkit-columns: 3;
+      -moz-columns: 3;
+    }
+    ul li
+    {
+       margin-bottom:50px;
+    }
+  </style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Emojint</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" onsubmit="return false">
+            <div class="form-group">
+              <input id="search_str" type="text" placeholder="search" class="form-control" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" autocomplete="off">
+            </div>
+            <button id="search_button" type="button" class="btn btn-success">Search</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Intelligence through Emoji :)</h1>
+        <p>Emoji shoutouts (you know who you are)! :no_good: :dancers:</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <ul>
+      <?php
+        $emojis = array();
+
+        $file_handle = fopen("./data/emoji.data", "r");
+        while (!feof($file_handle)) {
+          $line = fgets($file_handle);
+          $parts = explode("\t", $line);
+          if(!empty($parts[0])) {
+            $emojis[] = $parts;
+          }
+        }
+        fclose($file_handle);
+
+        shuffle($emojis);
+        
+        foreach( $emojis as $e ) {
+          echo sprintf('<li id="%s">%s <span id="-%s"></span></li>', $e[0], $e[1], $e[0]);
+        }
+      ?>
+      </ul>
+
+      <hr>
+
+      <footer>
+        <p>© 2016 me</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>  
+    
+    <!-- Emojify js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/js/emojify.min.js"></script>
+
+    <script>
+      (function() {
+        emojify.run();
+
+        $.fn.enterKey = function (fnc) {
+          return this.each(function () {
+            $(this).keypress(function (ev) {
+              var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+              if (keycode == '13') {
+                fnc.call(this, ev);
+              }
+            })
+          })
+        }
+
+        $("#search_str").enterKey(
+          function() {
+           search($("#search_str").val());
+          }
+        );
+
+	$("#search_button").click(
+          function() {
+           search($("#search_str").val());
+          }
+        );
+      })();
+    </script>
+
+    <script>
+      $( "li" ).hover(
+        function() {
+          var span = $( this ).find('span');
+          $( span ).text($( span ).attr('id').substr(1));
+        }, function() {
+          //$( this ).find('span')[0].text('...');
+          $(this).find('span').text('');
+        }
+      );
+
+      function search(term) {
+        $.each($( "li" ), function(index, value) {
+          id = $(value).attr('id');
+          if(term) {
+            if(id.includes(term)) {
+              $(value).show();
+            } else {
+              $(value).hide();
+            }
+          } else {
+            $(value).show();
+          }
+        });
+      };
+    </script>
+</body></html>
