@@ -93,7 +93,7 @@
       <hr>
 
       <footer>
-        <p>© 2016 me</p>
+        <p class="text-center">made with :heart:</p>
       </footer>
     </div> <!-- /container -->
 
