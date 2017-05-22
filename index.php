@@ -93,7 +93,7 @@
       <hr>
 
       <footer>
-        <p class="text-center">made with :heart:</p>
+        <p id="made_with" class="text-center">made with :heart:</p>
       </footer>
     </div> <!-- /container -->
 
@@ -128,6 +128,31 @@
           $( span ).text($( span ).attr('id').substr(1));
         }, function() {
           $(this).find('span').text('');
+        }
+      );
+
+      var heart = true;
+      $( "#made_with" ).hover(
+        function() {
+          if (heart) {
+            $(this).text("made with :beer:");
+            emojify.run();
+            heart = false;
+          }
+        }
+      );
+
+      var clicks = 0;
+      $( "#made_with" ).click(
+        function() {
+          clicks = clicks + 1;
+          if (clicks < 10) {
+            $( this ).text("made with :beers:");
+          }
+          else {
+            $( this ).html("<i>ok, you got me it was</i> made with :beer: :hamburger: :fries: :cocktail: :beer: :beers: :pizza: :pizza: :cake: :zzz: :coffee: :egg:");
+          }
+          emojify.run();
         }
       );
 
