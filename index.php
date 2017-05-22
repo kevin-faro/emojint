@@ -63,7 +63,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Intelligence through Emoji :)</h1>
-        <p>Emoji shoutouts (you know who you are)! :no_good: :dancers:</p>
+        <p>Emoji shoutouts! <i>(you know who you are)</i> :no_good: :dancers:</p>
       </div>
     </div>
 
