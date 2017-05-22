@@ -118,6 +118,7 @@
            search($("#search_str").val());
           }
         );
+        $("#search_str").focus();
       })();
     </script>
 
