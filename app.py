@@ -19,7 +19,7 @@ def slackbot():
 @app.route('/slackbot', methods = ['POST'])
 def bot():
   #todo log form
-  app.logger.info(request)
+  app.logger.info(request.form)
   print(request.form)
 
   msg = request.form['text']
@@ -33,10 +33,10 @@ def bot():
   else:
     response = __emojify(msg)
 
-  return jsonify({ 'ok': True, 'response_type': response[0], 'text': response[1], 'as_user': 'true' })
+  return jsonify({ 'ok': True, 'response_type': response[0], 'text': response[1], 'as_user': 'true', 'user': request.form['user_id'], 'channel': request.form['channel_id'], 'team':request.form['team_id'], 'token': request.form['token'] })
 
 def __help():
-  return ('ephemeral', '\n:beginner:\t-\tshow this help\n:post_office:\t-\tsend feedback\n...\t-\temoji awesomeness!\n```')
+  return ('ephemeral', ':beginner:\t-\tshow this help\n:post_office:\t-\tsend feedback\n...\t\t-\temoji awesomeness!')
 
 def __feedback():
   return ('ephemeral', 'Thanks for the feedback! :+1:')
