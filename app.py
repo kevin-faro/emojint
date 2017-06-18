@@ -33,7 +33,7 @@ def bot():
   else:
     response = __emojify(msg)
 
-  return jsonify({ 'response_type': response[0], 'text': response[1] })
+  return jsonify({ 'response_type': response[0], 'text': response[1], "user_id": request.form['user_id'] })
 
 def __help():
   return ('ephemeral', '| CMD | DESCRIPTION |\n|:---|:---|\n|:beginner:| show this help |\n |:post_office: | send feedback |\n| ... |emoji awesomeness!|')
