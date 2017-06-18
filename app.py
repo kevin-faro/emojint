@@ -33,10 +33,10 @@ def bot():
   else:
     response = __emojify(msg)
 
-  return jsonify({ 'response_type': response[0], 'text': response[1], 'as_user': 'true' })
+  return jsonify({ 'ok': True, 'response_type': response[0], 'text': response[1], 'as_user': 'true' })
 
 def __help():
-  return ('ephemeral', '```\n:beginner:\t-\tshow this help\n\:post_office:\t-\tsend feedback\n...\t-\temoji awesomeness!\n```')
+  return ('ephemeral', '\n:beginner:\t-\tshow this help\n:post_office:\t-\tsend feedback\n...\t-\temoji awesomeness!\n```')
 
 def __feedback():
   return ('ephemeral', 'Thanks for the feedback! :+1:')
